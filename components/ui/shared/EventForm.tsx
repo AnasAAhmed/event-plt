@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { eventformSchema } from "@/lib/validator";
+import { eventFormSchema } from "@/lib/validator";
 import { eventDefaultValues } from "@/constants";
 import Dropdown from "./Dropdown";
 import DatePicker from "react-datepicker";
@@ -31,23 +31,24 @@ type EventFormProps = {
 const EventForm = ({ userId, type,event,eventId }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([])
   const initialValues = event && type === 'Update'? 
-   {... 
+  {... 
     event, 
     startDateTime: new Date(event.startDateTime),
     endDateTime: new Date(event.endDateTime)
   } 
   : eventDefaultValues;
   const router = useRouter();
-
+  
+  console.log(userId)
   const { startUpload } = useUploadThing('imageUploader')
 
-  const form = useForm<z.infer<typeof eventformSchema>>({
-    resolver: zodResolver(eventformSchema),
+  const form = useForm<z.infer<typeof eventFormSchema>>({
+    resolver: zodResolver(eventFormSchema),
     defaultValues : initialValues
   })
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof eventformSchema>) {
+  async function onSubmit(values: z.infer<typeof eventFormSchema>) {
     let uploadedImageUrl = values.imageUrl;
 
     if(files.length > 0) {
@@ -98,8 +99,8 @@ const EventForm = ({ userId, type,event,eventId }: EventFormProps) => {
     }
   }
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
+    <Form {...form} >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 ">
         <div className="flex flex-col gap-5 md:flex-row">
 
           <FormField

@@ -9,6 +9,7 @@ import { SearchParamProps } from '@/type';
 
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) => {
   const event = await getEventById(id);
@@ -98,6 +99,7 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
           totalPages={relatedEvents?.totalPages}
         />
     </section>
+<Link href="/" className='p-regular-20 text-blue-500'>←Back</Link>
     </>
   )
 }
