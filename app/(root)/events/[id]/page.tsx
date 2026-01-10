@@ -20,10 +20,10 @@ export async function generateMetadata(
   // 404 metadata
   if (!event) {
     return {
-      title: "404 - Event Not Found | Moss",
+      title: "404 - Event Not Found | Evently",
       description: "The event you are looking for does not exist.",
       openGraph: {
-        title: "404 - Event Not Found | Moss",
+        title: "404 - Event Not Found | Evently",
         siteName: "Moss",
       },
       robots: {
@@ -33,10 +33,10 @@ export async function generateMetadata(
     };
   }
 
-  const eventTitle = `${event.title} - Moss`;
+  const eventTitle = `${event.title} - Evently`;
   const eventDescription =
     event.description ||
-    "Discover events, experiences, and activities with Moss.";
+    "Discover events, experiences, and activities with Evently.";
 
   const eventUrl =
     (process.env.APP_URL ?? "") + `/events/${id}`;
@@ -49,7 +49,7 @@ export async function generateMetadata(
       title: eventTitle,
       description: eventDescription,
       url: eventUrl,
-      siteName: "Moss",
+      siteName: "Evently",
       images: [
         {
           url: event.imageUrl,
@@ -65,7 +65,7 @@ export async function generateMetadata(
       title: eventTitle,
       description: eventDescription,
       images: [event.imageUrl],
-      creator: "Web Exaltia Team",
+      creator: "Anas Ahmed",
     },
 
     robots: {
