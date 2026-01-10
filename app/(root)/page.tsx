@@ -47,7 +47,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
         </div>
 
         <Suspense fallback={<div className='h-[30vh] flex justify-center items-center'>
-          <Loader2 className='animate-spin ease-out' size={30} />
+          <Loader2 className='animate-spin ease-in' size={30} />
         </div>}>
           <EventList page={page} category={category} searchText={searchText} />
         </Suspense>

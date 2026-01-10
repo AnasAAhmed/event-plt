@@ -1,9 +1,9 @@
 'use client';
 
 import { headerLinks } from '@/constants'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
+import SmartLink from './SmartLink';
 
 const NavItems = () => {
   const pathname = usePathname();
@@ -20,7 +20,7 @@ const NavItems = () => {
               isActive && 'text-primary-500'
             } flex-center p-medium-16 whitespace-nowrap`}
           >
-            <Link href={link.route}>{link.label}</Link>
+            <SmartLink href={link.route}>{link.label}</SmartLink>
           </li>
         )
       })}

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { DeleteConfirmation } from './DeleteConfirmation'
+import SmartLink from './SmartLink'
 
 type CardProps = {
   event: IEvent,
@@ -53,9 +54,9 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
           {formatDateTime(event.startDateTime).dateTime}
         </p>
 
-        <Link href={`/events/${event._id}`}>
+        <SmartLink href={`/events/${event._id}`}>
           <p className="p-medium-16 md:p-medium-20 line-clamp-2 flex-1 text-black">{event.title}</p>
-        </Link>
+        </SmartLink>
 
         <div className="flex-between w-full">
           <p className="p-medium-14 md:p-medium-16 text-grey-600">
@@ -63,10 +64,10 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
           </p>
 
           {hasOrderLink && (
-            <Link href={`/orders?eventId=${event._id}`} className="flex gap-2">
+            <SmartLink href={`/orders?eventId=${event._id}`} className="flex gap-2">
               <p className="text-primary-500">Order Details</p>
               <Image src="/assets/icons/arrow.svg" alt="search" width={10} height={10} />
-            </Link>
+            </SmartLink>
           )}
         </div>
       </div>
