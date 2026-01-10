@@ -4,20 +4,15 @@ import Search from '@/components/shared/Search';
 import { Button } from '@/components/ui/button'
 import { getAllEvents } from '@/lib/actions/event.actions';
 import { SearchParamProps } from '@/types';
+import { Loader2 } from 'lucide-react';
 import Image from 'next/image'
 import Link from 'next/link'
+import { Suspense } from 'react';
 
 export default async function Home({ searchParams }: SearchParamProps) {
   const page = Number(searchParams?.page) || 1;
   const searchText = (searchParams?.query as string) || '';
   const category = (searchParams?.category as string) || '';
-
-  const events = await getAllEvents({
-    query: searchText,
-    category,
-    page,
-    limit: 6
-  })
 
   return (
     <>
@@ -33,7 +28,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
             </Button>
           </div>
 
-          <Image 
+          <Image
             src="/assets/images/hero.png"
             alt="hero"
             width={1000}
@@ -41,7 +36,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
             className="max-h-[70vh] object-contain object-center 2xl:max-h-[50vh]"
           />
         </div>
-      </section> 
+      </section>
 
       <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
         <h2 className="h2-bold">Trust by <br /> Thousands of Events</h2>
@@ -51,16 +46,33 @@ export default async function Home({ searchParams }: SearchParamProps) {
           <CategoryFilter />
         </div>
 
-        <Collection 
-          data={events?.data}
-          emptyTitle="No Events Found"
-          emptyStateSubtext="Come back later"
-          collectionType="All_Events"
-          limit={6}
-          page={page}
-          totalPages={events?.totalPages}
-        />
+        <Suspense fallback={<div className='h-[30vh] flex justify-center items-center'>
+          <Loader2 className='animate-spin ease-out' size={30} />
+        </div>}>
+          <EventList page={page} category={category} searchText={searchText} />
+        </Suspense>
+
       </section>
     </>
+  )
+}
+
+async function EventList({ page, searchText, category }: { page: number, searchText: string, category: string }) {
+  const events = await getAllEvents({
+    query: searchText,
+    category,
+    page,
+    limit: 9
+  })
+  return (
+    <Collection
+      data={events?.data}
+      emptyTitle="No Events Found"
+      emptyStateSubtext="Come back later"
+      collectionType="All_Events"
+      limit={6}
+      page={page}
+      totalPages={events?.totalPages}
+    />
   )
 }
